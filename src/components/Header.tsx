@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Header() {
   const { data: session } = useSession();
-
+  console.log("Session: ", session);
   return (
     <>
       <header className="header w-11/12 m-auto p-6 flex justify-between items-center">
