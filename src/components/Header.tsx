@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -15,10 +16,10 @@ export default function Header() {
         {session ? (
           <div className="flex h-12">
             <div className="flex flex-col items-center mr-2">
-              <img
+              <Image
                 className="rounded-md"
-                src={session.user?.image}
-                alt={session.user?.name}
+                src={session.user?.image!}
+                alt={session.user?.name!}
                 height="25"
                 width="25"
               />
