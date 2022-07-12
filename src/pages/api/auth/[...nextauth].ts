@@ -1,6 +1,7 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { Theme, type NextAuthOptions } from "next-auth";
 
 import GithubProvider from "next-auth/providers/github";
+import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
 
 // Prisma adapter for NextAuth, optional and can be removed
@@ -10,6 +11,8 @@ import { prisma } from "../../../server/db/client";
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: "/auth/signin",
     // signOut: "/auth/signout",
@@ -28,18 +31,50 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
-    }),
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.EMAIL_SERVER_HOST,
+    //     port: Number(process.env.EMAIL_SERVER_PORT),
+    //     auth: {
+    //       user: process.env.EMAIL_SERVER_USER,
+    //       pass: process.env.EMAIL_SERVER_PASSWORD,
+    //     },
+    //   },
+    //   from: process.env.EMAIL_FROM,
+
+    //   sendVerificationRequest({
+    //     identifier: email,
+    //     url,
+    //     provider: { server, from },
+    //   }) {
+    //     console.log("01", email);
+    //     console.log("02", url);
+    //     console.log("03", server);
+    //     console.log("04", from);
+    //   },
+    // }),
+    // GoogleProvider({
+    //   clientId: String(process.env.GOOGLE_ID),
+    //   clientSecret: String(process.env.GOOGLE_SECRET),
+    //   authorization: {
+    //     params: {
+    //       prompt: "consent",
+    //       access_type: "offline",
+    //       response_type: "code",
+    //     },
+    //   },
+    // }),
   ],
+  callbacks: {
+    signIn: async (params: any) => {
+      {
+        console.log("User: ", params.user);
+        console.log("Account: ", params.account);
+        console.log("Profile: ", params.profile);
+        return Promise.resolve(true);
+      }
+    },
+  },
 };
 
 export default NextAuth(authOptions);
