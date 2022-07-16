@@ -61,7 +61,7 @@ export default function Examples() {
 
         {/* Listing Examples And Edit/Delete */}
         <div className="flex flex-wrap justify-center text-white pt-6 ">
-          {data?.map((ex) => {
+          {data?.map((ex: any) => {
             return (
               <div
                 key={ex.id}
