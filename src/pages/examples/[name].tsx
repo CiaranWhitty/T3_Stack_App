@@ -19,6 +19,10 @@ export default function ExamplesName() {
 
   const { data: currentSession } = useSession();
 
+  if (currentSession === null) {
+    return <LoggedOut />;
+  }
+  
   if (isLoading || !data) {
     return (
       <div className="flex animate-fade-in-delay justify-center p-8">

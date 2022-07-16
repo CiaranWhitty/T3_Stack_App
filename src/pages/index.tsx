@@ -9,7 +9,6 @@ import LoggedOut from "../components/LoggedOut";
 
 const Home: NextPage = () => {
   const { data: currentSession } = useSession();
-  // console.log("Session: ", sesh);
 
   return (
     <>
