@@ -66,13 +66,11 @@ export const authOptions: NextAuthOptions = {
     // }),
   ],
   callbacks: {
-    signIn: async (params: any) => {
-      {
-        console.log("User: ", params.user);
-        console.log("Account: ", params.account);
-        console.log("Profile: ", params.profile);
-        return Promise.resolve(true);
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
       }
+      return session;
     },
   },
 };

@@ -1,13 +1,19 @@
 import { useSession } from "next-auth/react";
+import Header from "./Header";
 
 export default function Layout({ children }: any) {
-  const session = useSession();
+  const { status } = useSession();
   return (
     <>
-      {session.status === "loading" ? (
+      {status === "loading" ? (
         <h1>Loading</h1>
       ) : (
-        <main>{children}</main>
+        <>
+          <Header />
+          <main className="max-w-4xl min-w-300 m-auto items-center">
+            {children}
+          </main>
+        </>
       )}
     </>
   );

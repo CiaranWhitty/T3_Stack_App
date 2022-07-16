@@ -7,10 +7,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="header w-11/12 m-auto p-6 flex justify-between items-center">
+      <header className="header p-3 flex flex-row items-center justify-between max-w-4xl min-w-300 m-auto">
         <Link href={"/"}>
           <a>
-            <h1 className="text-4xl font-bold">Home</h1>
+            <h1 className="text-3xl font-bold">T3 Stack</h1>
           </a>
         </Link>
         {session ? (

@@ -15,6 +15,10 @@ datasource db {
 
 model Example {
     id String @id @default(cuid())
+    name String
+    
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
 }
 
 // Necessary for Next auth
@@ -52,6 +56,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    Example Example[]
 }
 
 model VerificationToken {

@@ -1,13 +1,11 @@
 import { CtxOrReq } from "next-auth/client/_utils";
 import { signIn, getProviders, useSession } from "next-auth/react";
 
-import Header from "../../components/Header";
 
 export default function SignIn({ providers }: any) {
   const { data: session } = useSession();
   return (
     <>
-      <Header />
       <div className=" flex justify-center items-center">
         {session && <h1>Logged In</h1>}
         {!session && (
